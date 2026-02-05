@@ -27,9 +27,9 @@ app.UseExceptionHandler();
 app.UseCors();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
-    app.SwaggerConfig(builder.Configuration, "SwaggerConfigTest");
+    app.SwaggerConfig(builder.Configuration);
 }
 app.UseHttpsRedirection();
 
