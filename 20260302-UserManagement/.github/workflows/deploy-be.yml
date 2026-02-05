@@ -1,0 +1,34 @@
+name: Deploy BE to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "be/**"
+      - ".github/workflows/deploy-be.yml"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore
+        run: dotnet restore be/src/UserManagement.API/UserManagement.API.csproj
+
+      - name: Publish
+        run: dotnet publish be/src/UserManagement.API/UserManagement.API.csproj -c Release -o ${{ github.workspace }}/be_publish
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: user-management-api
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BE }}
+          package: ${{ github.workspace }}/be_publish
