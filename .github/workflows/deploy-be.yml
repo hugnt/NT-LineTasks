@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "be/**"
+      - "20260302-UserManagement/be/**"
       - ".github/workflows/deploy-be.yml"
 
 jobs:
@@ -21,10 +21,10 @@ jobs:
           dotnet-version: "10.0.x"
 
       - name: Restore
-        run: dotnet restore be/src/UserManagement.API/UserManagement.API.csproj
+        run: dotnet restore 20260302-UserManagement/be/src/UserManagement.API/UserManagement.API.csproj
 
       - name: Publish
-        run: dotnet publish be/src/UserManagement.API/UserManagement.API.csproj -c Release -o ${{ github.workspace }}/be_publish
+        run: dotnet publish 20260302-UserManagement/be/src/UserManagement.API/UserManagement.API.csproj -c Release -o ${{ github.workspace }}/be_publish
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3

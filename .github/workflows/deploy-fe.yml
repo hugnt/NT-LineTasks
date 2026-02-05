@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "fe/**"
+      - "20260302-UserManagement/fe/**"
       - ".github/workflows/deploy-fe.yml"
 
 jobs:
@@ -20,14 +20,14 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: fe/package-lock.json
+          cache-dependency-path: 20260302-UserManagement/fe/package-lock.json
 
       - name: Install
-        working-directory: fe
+        working-directory: 20260302-UserManagement/fe
         run: npm ci
 
       - name: Build
-        working-directory: fe
+        working-directory: 20260302-UserManagement/fe
         env:
           VITE_API_ENDPOINT: "https://user-management-api-d6htdqc5eqfmeber.southeastasia-01.azurewebsites.net/api"
         run: npm run build
@@ -37,4 +37,4 @@ jobs:
         with:
           app-name: user-management-dev
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_FE }}
-          package: fe/dist
+          package: 20260302-UserManagement/fe/dist
