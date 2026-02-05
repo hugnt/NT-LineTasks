@@ -1,4 +1,4 @@
-name: Deploy BE (Container) to Azure Web App
+name: Deploy BE (GHCR) to Azure Web App
 
 on:
   push:
@@ -11,13 +11,21 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+    permissions:
+      contents: read
+      packages: write
 
-      - name: Login to registry
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Login để PUSH image lên GHCR (Public chỉ áp dụng cho PULL)
+      - name: Login to GHCR
         uses: docker/login-action@v3
         with:
-          registry: ${{ secrets.REGISTRY_SERVER }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & Push BE image
         uses: docker/build-push-action@v6
@@ -26,11 +34,13 @@ jobs:
           file: ./20260302-UserManagement/be/Dockerfile
           push: true
           tags: |
-            ${{ secrets.IMAGE_BE }}:${{ github.sha }}
-            ${{ secrets.IMAGE_BE }}:latest
+            ghcr.io/${{ github.repository_owner }}/user-management-api:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/user-management-api:latest
 
+      # Deploy image tag sang Web App (cần publish profile hoặc Azure login)
       - name: Deploy BE image to Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ secrets.WEBAPP_BE_NAME }}
-          images: ${{ secrets.IMAGE_BE }}:${{ github.sha }}
+          app-name: user-management-api
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BE }}
+          images: ghcr.io/${{ github.repository_owner }}/user-management-api:${{ github.sha }}
