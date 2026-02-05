@@ -1,0 +1,21 @@
+services:
+  be:
+    build:
+      context: ./be
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+    ports:
+      - "5045:8080"
+
+  fe:
+    build:
+      context: ./fe
+      dockerfile: Dockerfile
+      args:
+        VITE_API_ENDPOINT: "http://localhost:5045/api"
+    ports:
+      - "5173:80"
+    depends_on:
+      - be
