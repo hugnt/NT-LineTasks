@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using UserManagement.Domain.Abstractions;
+using UserManagement.Application.Abstractions.Persistence;
 using UserManagement.Infrastructure.Persistence;
 using UserManagement.Infrastructure.Persistence.Interceptors;
 using UserManagement.Infrastructure.Persistence.Repository;

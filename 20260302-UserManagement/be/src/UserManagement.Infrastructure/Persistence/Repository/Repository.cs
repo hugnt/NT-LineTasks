@@ -2,8 +2,7 @@ using System.Linq.Expressions;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-
-using UserManagement.Domain.Abstractions;
+using UserManagement.Application.Abstractions.Persistence;
 
 namespace UserManagement.Infrastructure.Persistence.Repository;
 

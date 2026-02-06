@@ -1,6 +1,6 @@
-using System;
 using System.Linq.Expressions;
 using System.Net;
+using UserManagement.Application.Abstractions.Persistence;
 using UserManagement.Application.Common.Messages;
 using UserManagement.Application.Common.Validation;
 using UserManagement.Application.Helpers;
@@ -8,7 +8,6 @@ using UserManagement.Application.Models;
 using UserManagement.Application.Models.Mappings;
 using UserManagement.Application.Models.Requests;
 using UserManagement.Application.Models.Responses;
-using UserManagement.Domain.Abstractions;
 using UserManagement.Domain.Entities;
 
 namespace UserManagement.Application.Services.Implement;

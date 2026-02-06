@@ -1,4 +1,4 @@
-namespace UserManagement.Domain.Abstractions;
+namespace UserManagement.Application.Abstractions.Persistence;
 
 public interface IUnitOfWork
 {

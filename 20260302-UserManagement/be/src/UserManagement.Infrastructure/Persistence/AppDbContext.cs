@@ -1,7 +1,7 @@
-using System;
 using System.Reflection;
+
 using Microsoft.EntityFrameworkCore;
-using UserManagement.Domain.Abstractions;
+using UserManagement.Application.Abstractions.Persistence;
 using UserManagement.Domain.Entities;
 
 namespace UserManagement.Infrastructure.Persistence;
